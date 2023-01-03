@@ -1,0 +1,35 @@
+{% extends 'air/base.html' %}
+
+{% block content %}
+{% if data.count > 0 %}
+    <h2 class="text-center">Дані про якість повітря в містах України</h2><br>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">Дата</th>
+              <th scope="col">Місто</th>
+              <th scope="col">Забрудник</th>
+              <th scope="col">Кількість(мкг/м³)</th>
+              <th scope="col">Датчик</th>
+              <th scope="col">Автор запису</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for post in data %}
+            <tr>
+              <td>{{ post.id }}</td>
+              <td>{{ post.datetime }}</td>
+              <td>{{ post.city }}</td>
+              <td>{{ post.pollutant }}</td>
+              <td>{{ post.concentration }}</td>
+              <td>{{ post.sensor }}</td>
+              <td>{{ post.author }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+{% endif %}
+{% endblock %}

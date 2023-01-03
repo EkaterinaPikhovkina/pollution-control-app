@@ -1,0 +1,21 @@
+{% extends 'air/base.html' %}
+
+{% block content %}
+    <div class="row flex-lg-row-reverse text-center g-5">
+        <h1 class="display-8 fw-bold">Новий запис</h1>
+        <form method="post">{% csrf_token %}
+            <label class="form-label">Дата та час</label>
+            {{ form.datetime }}<br>
+            <label class="form-label">Місто</label>
+            {{ form.city }}<br>
+            <label class="form-label">Забрудник</label>
+            {{ form.pollutant }}<br>
+            <label class="form-label">Концентрація в повітрі</label>
+            {{ form.concentration }}<br>
+            <label class="form-label">Датчик</label>
+            {{ form.sensor }}<br>
+            <span>{{ error }}</span>
+            <button class="btn btn-success" type="submit">Додати</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'air/base.html' %}
+
+{% block content %}
+    <div class="row flex-lg-row-reverse text-center g-5">
+        <h1 class="display-10">Новий запис</h1>
+        <form method="post">{% csrf_token %}
+            <div class="col-12">
+            <label class="form-label">Місто</label>
+            {{ form.city }}<br>
+            <label class="form-label">Забрудник</label>
+            {{ form.pollutant }}<br>
+            <span>{{ error }}</span>
+            </div>
+            <button class="btn btn-success" type="submit">Додати</button>
+        </form>
+    </div>
+{% endblock %}

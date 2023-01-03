@@ -1,0 +1,23 @@
+{% extends 'air/base.html' %}
+{% load static %}
+
+{% block head %}
+<script src="{% static 'air/css/year_report.css' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="row flex-lg-row-reverse text-center g-5">
+    <h1 class="display-10">Річний звіт</h1>
+    <form action="{% url 'year_chart' %}" method="GET">{% csrf_token %}
+        <div class="col-12">
+        <label class="form-label">Місто</label>
+        {{ form.city }}<br>
+        <label class="form-label">Забрудник</label>
+        {{ form.pollutant }}<br>
+        <label class="form-label">Рік</label>
+        <input id="year" type="number" class="form-control" name="year" value=""><br>
+        </div>
+        <button class="btn btn-success" type="submit">Додати</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'air/base.html' %}
+
+{% block content %}
+    <div class="px-4 py-5 my-5 text-center">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+            <div class="col-12 text-center">
+                  <button type="button" class="btn btn-success"> <a href="{% url 'add_my_data' %}" class="nav-link px-2 link-whitexsd">Додати свої дані</a></button>
+            </div>
+            <div class="col-12 text-center">
+                  <button type="button" class="btn btn-success"> <a href="{% url 'add_sensor_data' %}" class="nav-link px-2 link-whitexsd">Додати дані з сенсору</a></button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

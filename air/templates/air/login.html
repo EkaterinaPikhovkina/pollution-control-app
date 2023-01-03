@@ -1,0 +1,21 @@
+{% extends 'air/base.html' %}
+
+{% block content %}
+<main class="form-signin w-100 m-auto">
+  <form method="post">{% csrf_token %}
+    <div class="form-error">{{ form.non_field_errors }}</div>
+
+    <h1 class="h3 mb-3 fw-normal">Авторизація</h1>
+
+    <div class="form-floating">
+      <input type="text" class="form-control" id="floatingInput">
+      <label for="floatingInput">Прізвище та ім'я</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword">
+      <label for="floatingPassword">Пароль</label>
+    </div>
+    <button class="w-100 btn btn-lg btn-primary" type="submit"><a href="{% url 'home' %}" class="nav-link px-2 link-whitexsd">Увійти</a></button>
+  </form>
+</main>
+{% endblock %}

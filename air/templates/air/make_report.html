@@ -1,0 +1,17 @@
+{% extends 'air/base.html' %}
+
+{% block content %}
+<div class="px-4 py-5 my-5 text-center">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <div class="col-12 text-center">
+              <button type="button" class="btn btn-success"> <a href="{% url 'year_report' %}" class="nav-link px-2 link-whitexsd">Річний звіт</a></button>
+        </div>
+        <div class="col-12 text-center">
+              <button type="button" class="btn btn-success"> <a href="{% url 'month_report' %}" class="nav-link px-2 link-whitexsd">Місячний звіт</a></button>
+        </div>
+        <div class="col-12 text-center">
+              <button type="button" class="btn btn-success"> <a href="{% url 'quarterly_report' %}" class="nav-link px-2 link-whitexsd">Квартальний звіт</a></button>
+        </div>
+    </div>
+</div>
+{% endblock %}
