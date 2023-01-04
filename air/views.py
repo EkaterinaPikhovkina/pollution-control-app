@@ -1,10 +1,8 @@
 import requests
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect, JsonResponse, HttpResponseNotFound
+from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render, redirect
-import datetime
 
-from .models import *
 from .forms import *
 from .utils import *
 
@@ -18,7 +16,8 @@ menu = [{'title': "Ввід даних", 'url_name': 'add_data'},
 
 def home(request):
     context = {
-        'menu': menu
+        'menu': menu,
+        'title': ''
     }
     return render(request, 'air/index.html', context)
 
@@ -50,11 +49,14 @@ def api_data(post, item):
 
 
 def add_data(request):
-    return render(request, 'air/add_data.html')
+    context = {
+        'menu': menu,
+        'title': ''
+    }
+    return render(request, 'air/add_data.html', context)
 
 
 def add_my_data(request):
-    error = ''
     if request.method == 'POST':
         form = MyDataForm(request.POST)
         if form.is_valid():
@@ -62,21 +64,18 @@ def add_my_data(request):
             post.author = request.user
             post.save()
             return HttpResponseRedirect(request.path)
-        else:
-            error = 'Error'
+    else:
+        form = MyDataForm()
 
-    form = MyDataForm()
-
-    data = {
+    context = {
+        'menu': menu,
+        'title': 'Новий запис',
         'form': form,
-        'error': error,
     }
-
-    return render(request, 'air/add_my_data.html', data)
+    return render(request, 'air/add_my_data.html', context)
 
 
 def add_sensor_data(request):
-    error = ''
     if request.method == 'POST':
         form = SensorDataForm(request.POST)
         if form.is_valid():
@@ -86,43 +85,62 @@ def add_sensor_data(request):
             post.sensor = api_data(post, 'sensor')
             post.save()
             return HttpResponseRedirect(request.path)
-        else:
-            error = 'Error'
+    else:
+        form = SensorDataForm()
 
-    form = SensorDataForm()
-
-    data = {
+    context = {
+        'menu': menu,
+        'title': 'Новий запис',
         'form': form,
-        'error': error,
     }
 
-    return render(request, 'air/add_sensor_data.html', data)
+    return render(request, 'air/add_sensor_data.html', context)
 
 
 def show_data(request):
     data = AirData.objects.all()
+
     if len(data) == 0:
         return HttpResponseNotFound('<h1>Дані відсутні</h1>')
+
     context = {
+        'menu': menu,
+        'title': '',
         'data': data,
     }
     return render(request, "air/show_data.html", context)
 
 
 def make_report(request):
-    return render(request, 'air/make_report.html')
+    context = {
+        'menu': menu,
+        'title': '',
+    }
+    return render(request, 'air/make_report.html', context)
 
 
 def year_report(request):
-    form = YearReportForm()
-    data = {
+    if request.method == 'GET':
+        form = YearReportForm(request.GET)
+        if form.is_valid():
+            print(form.cleaned_data)
+    else:
+        form = YearReportForm()
+
+    context = {
+        'menu': menu,
+        'title': 'Річний звіт',
         'form': form
     }
-    return render(request, 'air/year_report.html', data)
+    return render(request, 'air/year_report.html', context)
 
 
 def year_chart(request):
-    return render(request, 'air/year_chart.html')
+    context = {
+        'menu': menu,
+        'title': '',
+    }
+    return render(request, 'air/year_chart.html', context)
 
 
 def get_year_data(request):
@@ -138,25 +156,39 @@ def get_year_data(request):
         dates.append(datetime.datetime.strftime(item.datetime, '%d.%m.%Y'))
         quantities.append(item.concentration)
 
-    return render(request, 'air/year_chart.html', {
+    context = {
+        'menu': menu,
+        'title': '',
         'labels': dates,
         'data': quantities,
-    })
+    }
+    return render(request, 'air/year_chart.html', context)
 
 
 def month_report(request):
-    return render(request, 'air/year_chart.html')
+    context = {
+        'menu': menu,
+        'title': '',
+    }
+    return render(request, 'air/year_chart.html', context)
 
 
 def quarterly_report(request):
-    return render(request, 'air/year_chart.html')
+    context = {
+        'menu': menu,
+        'title': '',
+    }
+    return render(request, 'air/year_chart.html', context)
 
 
 def news(request):
     posts = News.objects.all()
-    # if len(posts) == 0:
-    #     return HttpResponseNotFound('<h1>Дані відсутні</h1>')
+    if len(posts) == 0:
+        return HttpResponseNotFound('<h1>Дані відсутні</h1>')
+
     context = {
+        'menu': menu,
+        'title': '',
         'posts': posts
     }
     return render(request, 'air/news.html', context)
@@ -174,10 +206,11 @@ def login_user(request):
             return HttpResponseRedirect(request.path)
     else:
         form_class = LoginUserForm()
-        data = {
+
+        context = {
             'form': form_class,
         }
-        return render(request, 'air/login.html', data)
+        return render(request, 'air/login.html', context)
 
 
 def logout_user(request):
