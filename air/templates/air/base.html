@@ -19,10 +19,9 @@
       </a>
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
         <li><a href="{% url 'home' %}" class="nav-link px-2 link-secondary">Головна</a></li>
-        <li><a href="{% url 'add_data' %}" class="nav-link px-2 link-dark">Ввід даних</a></li>
-        <li><a href="{% url 'show_data' %}" class="nav-link px-2 link-dark">Перегляд даних</a></li>
-        <li><a href="{% url 'make_report' %}" class="nav-link px-2 link-dark">Звіт</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">Новини</a></li>
+        {% for m in menu %}
+			<li><a href="{% url m.url_name %}" class="nav-link px-2 link-dark">{{m.title}}</a></li>
+        {% endfor %}
       </ul>
       {% if request.user.is_authenticated %}
         <div class="col-md-3 text-end">

@@ -1,7 +1,5 @@
-from django.conf.urls.static import static
 from django.urls import path
 from .views import *
-from ..AirApp import settings
 
 urlpatterns = [
     path('', home, name='home'),
@@ -15,11 +13,8 @@ urlpatterns = [
     path('make_report/year_report/year_chart', get_year_data, name='year_chart'),
     path('make_report/month_report', month_report, name='month_report'),
     path('make_report/quarterly_report', quarterly_report, name='quarterly_report'),
+    path('news/', news, name='news'),
     path('logout/', logout_user, name='logout'),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-handler404 = pageNotFound
 

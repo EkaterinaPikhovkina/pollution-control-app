@@ -2,5 +2,7 @@ from django.apps import AppConfig
 
 
 class AirConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
+    #default_auto_field = 'django.db.models.BigAutoField'
     name = 'air'
+    verbose_name = 'Контроль забруднення повітря'
+

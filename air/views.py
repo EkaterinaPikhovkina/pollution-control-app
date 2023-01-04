@@ -9,8 +9,18 @@ from .forms import *
 from .utils import *
 
 
+menu = [{'title': "Ввід даних", 'url_name': 'add_data'},
+        {'title': "Перегляд даних", 'url_name': 'show_data'},
+        {'title': "Звіт", 'url_name': 'make_report'},
+        {'title': "Новини", 'url_name': 'news'},
+        ]
+
+
 def home(request):
-    return render(request, 'air/index.html')
+    context = {
+        'menu': menu
+    }
+    return render(request, 'air/index.html', context)
 
 
 def api_data(post, item):
@@ -91,6 +101,8 @@ def add_sensor_data(request):
 
 def show_data(request):
     data = AirData.objects.all()
+    if len(data) == 0:
+        return HttpResponseNotFound('<h1>Дані відсутні</h1>')
     context = {
         'data': data,
     }
@@ -107,23 +119,6 @@ def year_report(request):
         'form': form
     }
     return render(request, 'air/year_report.html', data)
-
-
-def get_data(request):
-    city = request.GET.get('city')
-    pollutant = request.GET.get('pollutant')
-    year = int(request.GET.get('year'))
-    period_data = AirData.objects.filter(
-        datetime__gte=datetime.datetime(year, 1, 1), datetime__lte=datetime.datetime(year, 12, 31),
-        pollutant=pollutant, city=city)
-    data = {}
-    for item in period_data:
-        data[datetime.datetime.strftime(item.datetime, '%d.%m.%Y')] = item.concentration
-
-    context = {
-        'data': data
-    }
-    return JsonResponse(context, safe=False)
 
 
 def year_chart(request):
@@ -155,6 +150,16 @@ def month_report(request):
 
 def quarterly_report(request):
     return render(request, 'air/year_chart.html')
+
+
+def news(request):
+    posts = News.objects.all()
+    # if len(posts) == 0:
+    #     return HttpResponseNotFound('<h1>Дані відсутні</h1>')
+    context = {
+        'posts': posts
+    }
+    return render(request, 'air/news.html', context)
 
 
 def login_user(request):

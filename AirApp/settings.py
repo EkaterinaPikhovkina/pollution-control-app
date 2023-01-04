@@ -1,5 +1,4 @@
 import os.path
-
 from .config import *
 from pathlib import Path
 
@@ -95,7 +94,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'uk-ua'
 
 TIME_ZONE = 'Europe/Kyiv'
 
