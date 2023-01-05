@@ -33,7 +33,7 @@ class Pollutant(models.Model):
 
 class City(models.Model):
     name = models.CharField(max_length=30, null=True, verbose_name="Назва")
-    api_name = models.CharField(max_length=100, null=True, verbose_name="Назва для API")
+    api_name = models.CharField(max_length=30, null=True, verbose_name="Назва для API")
 
     def __str__(self):
         return self.name

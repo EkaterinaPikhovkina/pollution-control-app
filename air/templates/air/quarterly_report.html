@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'air/base.html' %}
 
-</body>
-</html>
+
+{% block content %}
+<div class="row flex-lg-row-reverse text-center g-5">
+    <h1 class="display-10">{{title}}</h1>
+    <div class="form-error">{{ form.non_field_errors }}</div>
+    <form action="{% url 'year_chart' %}" method="GET">{% csrf_token %}
+        <div class="col-12">
+            {% for f in form %}
+        <p><label class="form-label">{{f.label}}</label>{{ f }}</p>
+        <div class="form-error">{{ f.errors }}</div>
+            {% endfor %}
+        </div>
+        <button class="btn btn-success" type="submit">Показати</button>
+    </form>
+</div>
+{% endblock %}
