@@ -74,8 +74,8 @@ class Prevention(models.Model):
 
 
 class Advice(models.Model):
-    pollutant = models.ForeignKey(Pollutant, on_delete=models.PROTECT, null=True, verbose_name="Забрудник")
-    prevention = models.ForeignKey(Prevention, on_delete=models.PROTECT, null=True, verbose_name="Попередження")
+    pollutant = models.ForeignKey(Pollutant, on_delete=models.CASCADE, null=True, verbose_name="Забрудник")
+    prevention = models.ForeignKey(Prevention, on_delete=models.CASCADE, null=True, verbose_name="Попередження")
 
     def __str__(self):
         return self.prevention.description
@@ -88,7 +88,7 @@ class Advice(models.Model):
 
 class News(models.Model):
     datetime = models.DateTimeField(default=timezone.now, null=True, verbose_name="Дата та час публікації")
-    advice = models.ForeignKey(Advice, on_delete=models.PROTECT, null=True, verbose_name="Попередження")
+    advice = models.ForeignKey(Advice, on_delete=models.CASCADE, null=True, verbose_name="Попередження")
 
     def __str__(self):
         return str(self.datetime)

@@ -72,7 +72,7 @@ class AddSensorData(DataMixin, CreateView):
         self.object.concentration = self.api_data(self.object, 'concentration')
         if self.object.concentration > self.object.pollutant.norm_ind:
             news = News()
-            news.advice = 1
+            news.advice = Advice.objects.get(pollutant_id=self.object.pollutant.id)
             news.save()
         self.object.sensor = self.api_data(self.object, 'sensor')
         self.object.save()
