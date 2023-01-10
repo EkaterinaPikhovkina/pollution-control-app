@@ -1,4 +1,5 @@
-host = 'localhost'
+host = '127.0.1.1'
+port = '3306'
 user = 'root'
 password = 'Katerina-1'
 db_name = 'air'
